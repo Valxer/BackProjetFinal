@@ -3,22 +3,27 @@ package com.thales.projetfinal.model;
 import java.util.Collection;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Client {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@JsonView(JsonViews.Common.class)
+	private String id;
+	@JsonView(JsonViews.Common.class)
 	private String password;
+	@JsonView(JsonViews.Common.class)
 	private String nom;
+	@JsonView(JsonViews.Common.class)
 	private String prenom;
+	@JsonView(JsonViews.Common.class)
 	private String adresse;
 	@OneToMany(mappedBy = "client")
+	@JsonView(JsonViews.ClientWithCommandes.class)
 	private Collection<Commande> commandes;
 	@Version
 	private int version;
@@ -55,11 +60,11 @@ public class Client {
 		this.version = version;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

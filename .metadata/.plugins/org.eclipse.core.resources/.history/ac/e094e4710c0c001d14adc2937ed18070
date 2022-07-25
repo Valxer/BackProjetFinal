@@ -1,0 +1,13 @@
+package com.ajc.site.model;
+
+public class JsonViews {
+	public static class Common {
+	}
+
+	public static class PersonWithDept extends Common {
+	}
+
+	public static class DeptWithPerson extends Common {
+	}
+
+}

@@ -9,18 +9,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Article {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Common.class)
 	private int ref;
+	@JsonView(JsonViews.Common.class)
 	private String nom;
+	@JsonView(JsonViews.Common.class)
 	private String description;
+	@JsonView(JsonViews.Common.class)
 	private int prix;
+	@JsonView(JsonViews.Common.class)
 	private String image;
-	// @OneToMany(mappedBy = "article")
 	@ElementCollection(targetClass = IdCommandeArticle.class)
+	@JsonView(JsonViews.ArticleWithCommandes.class)
 	private List<IdCommandeArticle> commandes;
 	@Version
 	private int version;

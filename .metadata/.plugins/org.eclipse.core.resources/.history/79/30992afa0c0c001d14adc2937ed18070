@@ -1,0 +1,13 @@
+package com.thales.projetfinal.model;
+
+public class JsonViews {
+	public static class Common {
+	}
+
+	public static class ClientWithCommande extends Common {
+	}
+
+	public static class CommandeWithClient extends Common {
+	}
+
+}

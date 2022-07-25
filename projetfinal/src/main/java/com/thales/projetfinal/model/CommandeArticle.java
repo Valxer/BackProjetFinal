@@ -4,10 +4,14 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class CommandeArticle {
 	@EmbeddedId
+	@JsonView(JsonViews.Common.class)
 	private IdCommandeArticle id;
+	@JsonView(JsonViews.Common.class)
 	private int quantite;
 	@Version
 	private int version;

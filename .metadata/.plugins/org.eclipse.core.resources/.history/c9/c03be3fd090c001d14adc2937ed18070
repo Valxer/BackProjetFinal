@@ -1,0 +1,5 @@
+package com.thales.projetfinal.repository;
+
+public interface ClientRepository {
+
+}

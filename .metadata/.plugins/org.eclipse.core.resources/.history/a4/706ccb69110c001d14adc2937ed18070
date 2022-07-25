@@ -1,0 +1,59 @@
+package com.thales.projetfinal.api;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.thales.projetfinal.model.Client;
+import com.thales.projetfinal.repository.ClientRepository;
+
+public class ClientRestController {
+
+	@Autowired
+	private ClientRepository repo;
+
+	@CrossOrigin(origins = "*")
+	@GetMapping("/findall")
+	public List<Client> findall() {
+		return repo.findAll();
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping("/findbyid/{id}")
+	public Client finbyid(@PathVariable(name = "id") String id) {
+		return repo.findById(id).get();
+	}
+
+	@CrossOrigin(origins = "*")
+	@GetMapping("/login/{mail}/{pass}")
+	public Client findByMailAndPass(@PathVariable(name = "mail") String mail,
+			@PathVariable(name = "pass") String pass) {
+		Client p = repo.findByMailAndPassword(mail, pass);
+		return p;
+	}
+
+	@CrossOrigin(origins = "*")
+	@PostMapping("/create")
+	public void create(@RequestBody Client p) {
+		repo.save(p);
+	}
+
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable(name = "id") String id) {
+		repo.delete(repo.findById(id).get());
+	}
+
+	@CrossOrigin(origins = "*")
+	@PutMapping("/update")
+	public void update(@RequestBody Client p) {
+		repo.save(p);
+	}
+}

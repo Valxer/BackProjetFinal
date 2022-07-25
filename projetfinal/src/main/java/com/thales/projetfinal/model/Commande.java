@@ -12,18 +12,24 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity
 public class Commande {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Common.class)
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "client")
+	@JsonView(JsonViews.CommandeWithClient.class)
 	private Client client;
+	@JsonView(JsonViews.Common.class)
 	private Date date;
-	// @OneToMany(mappedBy = "commande")
 	@ElementCollection(targetClass = IdCommandeArticle.class)
+	@JsonView(JsonViews.CommandeWithArticles.class)
 	private List<IdCommandeArticle> articles;
+	@JsonView(JsonViews.Common.class)
 	private int total;
 	@Version
 	private int version;
