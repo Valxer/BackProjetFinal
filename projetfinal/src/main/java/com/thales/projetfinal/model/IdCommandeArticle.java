@@ -6,14 +6,18 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Embeddable
 public class IdCommandeArticle implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "commande")
+	@JsonView(JsonViews.Common.class)
 	private Commande commande;
 	@ManyToOne
 	@JoinColumn(name = "article")
+	@JsonView(JsonViews.Common.class)
 	private Article article;
 
 	public IdCommandeArticle(Commande commande, Article article) {
