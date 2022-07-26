@@ -1,8 +1,10 @@
 package com.thales.projetfinal.api;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +42,10 @@ public class CommandeRestController {
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/create")
-	public void create(@RequestBody Commande p) {
-		repo.save(p);
+	@JsonView(JsonViews.Common.class)
+	public ResponseEntity<Commande> create(@RequestBody Commande p) {
+		Commande cmd = repo.save(p);
+		return ResponseEntity.created(URI.create(String.format("/commande/%s", p.getId()))).body(cmd);
 	}
 
 	@CrossOrigin(origins = "*")
