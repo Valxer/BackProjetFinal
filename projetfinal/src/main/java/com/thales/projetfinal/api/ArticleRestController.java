@@ -33,6 +33,13 @@ public class ArticleRestController {
 	}
 
 	@CrossOrigin(origins = "*")
+	@GetMapping("/findbyname/{name}")
+	@JsonView(JsonViews.Common.class)
+	public List<Article> findbyname(@PathVariable(name = "name") String name) {
+		return repo.findByNomContaining(name);
+	}
+
+	@CrossOrigin(origins = "*")
 	@GetMapping("/findbyid/{id}")
 	@JsonView(JsonViews.Common.class)
 	public Article finbyid(@PathVariable(name = "id") int id) {
