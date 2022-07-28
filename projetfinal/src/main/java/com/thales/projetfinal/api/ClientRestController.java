@@ -1,8 +1,10 @@
 package com.thales.projetfinal.api;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +51,11 @@ public class ClientRestController {
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/create")
-	public void create(@RequestBody Client p) {
-		if (repo.findById(p.getId()) != null)
-			return;
-		repo.save(p);
+	public ResponseEntity<Client> create(@RequestBody Client p) {
+		if (repo.findById(p.getId()).isPresent())
+			return ResponseEntity.status(400).body(null);
+		Client c = repo.save(p);
+		return ResponseEntity.created(URI.create(String.format("/client/%s", p.getId()))).body(c);
 	}
 
 	@CrossOrigin(origins = "*")
