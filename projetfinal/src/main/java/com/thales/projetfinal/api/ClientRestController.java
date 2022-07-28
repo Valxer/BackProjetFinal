@@ -50,6 +50,8 @@ public class ClientRestController {
 	@CrossOrigin(origins = "*")
 	@PostMapping("/create")
 	public void create(@RequestBody Client p) {
+		if (repo.findById(p.getId()) != null)
+			return;
 		repo.save(p);
 	}
 
